@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Aid Delivery</title>
+    <style>
+        /* General reset and body styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hero {
+            background-color: #2196F3; /* Blue background */
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form input, form select {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #map {
+            width: 100%;
+            height: 400px; /* Height of the map */
+        }
+
+        .spacer {
+            height: 50px; /* Adjust this value to control the space */
+        }
+
+        /* Style for the PayPal donation button with yellow background and blue text */
+        .paypal-donation input[type="submit"] {
+            background-color: #FFCC00; /* Yellow background */
+            color: #003366; /* Blue text */
+            padding: 10px 20px;
+            font-size: 1.1em;
+            font-weight: bold; /* Make text bold */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 200px;
+            margin-top: 20px;
+        }
+
+        .paypal-donation input[type="submit"]:hover {
+            background-color: #FFB900; /* Darker yellow on hover */
+        }
+
+        /* Style for the submit button in the Request Aid section */
+        .request-aid-submit input[type="submit"] {
+            background-color: #2196F3; /* Blue background */
+            color: #fff; /* White text */
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 200px;
+            margin-top: 20px;
+        }
+
+        .request-aid-submit input[type="submit"]:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+    </style>
+
+    <!-- Leaflet CSS (for styling the map) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="#request">Request Aid</a></li>
+                <li><a href="#tracker">Drone Tracker</a></li>
+                <li><a href="#donate">Donate</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Aeroaid</h1> <!-- Added Aeroaid as the main title -->
+        <h2>Revolutionizing Crisis Aid with Drone Technology</h2>
+        <p>Delivering essential supplies to areas affected by crisis using cutting-edge drone technology.</p>
+        <button onclick="window.location.href='#request'">Request Aid</button>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Our project operates at the intersection of the humanitarian aid sector and the aerospace industry, leveraging innovative drone technology to deliver essential supplies in crisis zones. By focusing on sustainability, the project transforms recycled aircraft materials into drones capable of efficiently addressing logistical challenges in remote and conflict-affected areas.</p>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners">
+        <h2>Our Partners</h2>
+        <p>We are proud to collaborate with renowned organizations and companies to bring innovative solutions to humanitarian challenges. Our partnerships with ONGs like the Red Cross allow us to deliver aid to the most vulnerable populations in times of crisis.</p>
+        <p>In addition, we work with aerospace industry leaders such as Airbus and Boeing, refurbishing aircraft materials to create sustainable and efficient drones. This collaboration enables us to recycle and repurpose valuable resources, further enhancing the impact of our mission.</p>
+    </section>
+
+    <!-- Request Aid Section -->
+    <section id="request">
+        <h2>Request Aid</h2>
+        <form action="#" method="POST">
+            <label for="orgName">Organization Name:</label>
+            <input type="text" id="orgName" name="orgName" required><br>
+
+            <label for="location">Location (Latitude, Longitude):</label>
+            <input type="text" id="location" name="location" required><br>
+
+            <label for="aidType">Type of Aid Needed:</label>
+            <input type="text" id="aidType" name="aidType" required><br>
+        </form>
+        <div class="request-aid-submit">
+            <input type="submit" value="Submit Request">
+        </div>
+    </section>
+
+    <!-- Donate Section with PayPal Button -->
+    <section id="donate">
+        <h2>Donate</h2>
+        <p>Your donation helps us continue to provide essential aid to those in need, powered by innovative drone technology.</p>
+        <div class="paypal-donation">
+            <!-- PayPal Donation Button (replace YOUR_PAYPAL_ID with your actual PayPal account ID) -->
+            <form action="https://www.paypal.com/donate" method="post" target="_top">
+                <input type="hidden" name="business" value="YOUR_PAYPAL_ID"> <!-- Replace with your PayPal ID -->
+                <input type="hidden" name="item_name" value="Aeroaid Donation">
+                <input type="hidden" name="currency_code" value="USD">
+                <input type="submit" value="Donate with PayPal">
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>If you would like to get in touch with us, please feel free to reach out using the following contact details:</p>
+        <p><strong>Email:</strong> support@aeroaid.org</p>
+        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map-section">
+        <h2>Our Location</h2>
+        <div id="map"></div> <!-- The map will be displayed here -->
+    </section>
+
+    <!-- Spacer Section (Blank space at the bottom of the page) -->
+    <div class="spacer"></div>
+
+    <footer>
+        <p>&copy; 2024 Aeroaid. All rights reserved.</p>
+    </footer>
+
+    <!-- Leaflet JS (for the map functionality) -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([51.505, -0.09], 13); // Set to a default location (latitude, longitude)
+
+        // Add OpenStreetMap tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker to the map (you can change the coordinates)
+        var marker = L.marker([51.505, -0.09]).addTo(map);
+        marker.bindPopup("<b>Aeroaid Headquarters</b>").openPopup();
+    </script>
+</body>
+</html>
