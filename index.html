@@ -3,49 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drone Webpage</title>
+    <title>Aeroaid - Revolutionizing Aid Delivery</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* General reset and body styling */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
             background-color: #f4f4f4;
             color: #333;
         }
+
         header {
             background-color: #333;
             color: white;
             padding: 1rem 2rem;
             text-align: center;
         }
-        main {
-            padding: 2rem;
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
-        footer {
-            background-color: #333;
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hero {
+            background-color: #2196F3;
             color: white;
             text-align: center;
+            padding: 50px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+        }
+
+        section {
+            padding: 2rem;
+            margin: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .submit-button input {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-button input:hover {
+            background-color: #1976D2;
+        }
+
+        footer {
+            text-align: center;
             padding: 1rem;
-            position: fixed;
+            background-color: #333;
+            color: white;
+            position: relative;
             bottom: 0;
             width: 100%;
         }
-        a {
-            color: #007BFF;
-            text-decoration: none;
+
+        #map {
+            width: 100%;
+            height: 400px;
         }
     </style>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
     <header>
-        <h1>Welcome to the Drone Webpage</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="#request">Request Aid</a></li>
+                <li><a href="#donate">Donate</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-        <p>This is a simple webpage to showcase information about drones.</p>
-        <p>Explore more about drones by clicking <a href="https://en.wikipedia.org/wiki/Drone">here</a>.</p>
-    </main>
+
+    <section id="home" class="hero">
+        <h1>Aeroaid</h1>
+        <h2>Revolutionizing Crisis Aid with Drone Technology</h2>
+        <p>Delivering essential supplies to crisis zones with cutting-edge drone technology.</p>
+        <button onclick="window.location.href='#request'">Request Aid</button>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Aeroaid operates at the intersection of humanitarian aid and aerospace innovation, creating drones from recycled aircraft materials to deliver essential supplies efficiently.</p>
+    </section>
+
+    <section id="partners">
+        <h2>Our Partners</h2>
+        <p>We collaborate with organizations like the Red Cross, Airbus, and Boeing to bring aid to vulnerable populations and repurpose resources sustainably.</p>
+    </section>
+
+    <section id="request">
+        <h2>Request Aid</h2>
+        <form action="#" method="POST">
+            <label for="orgName">Organization Name:</label>
+            <input type="text" id="orgName" name="orgName" required>
+
+            <label for="location">Location (Latitude, Longitude):</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="aidType">Type of Aid Needed:</label>
+            <input type="text" id="aidType" name="aidType" required>
+        </form>
+        <div class="submit-button">
+            <input type="submit" value="Submit Request">
+        </div>
+    </section>
+
+    <section id="donate">
+        <h2>Donate</h2>
+        <p>Your support helps us innovate and deliver essential aid.</p>
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="business" value="YOUR_PAYPAL_ID">
+            <input type="hidden" name="item_name" value="Aeroaid Donation">
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="submit" value="Donate with PayPal">
+        </form>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: support@aeroaid.org</p>
+        <p>Phone: +1 (555) 123-4567</p>
+    </section>
+
+    <section id="map">
+        <h2>Our Location</h2>
+        <div id="map"></div>
+    </section>
+
     <footer>
-        <p>&copy; 2024 Drone Webpage. All rights reserved.</p>
+        <p>&copy; 2024 Aeroaid. All rights reserved.</p>
     </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([51.505, -0.09], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+        L.marker([51.505, -0.09]).addTo(map).bindPopup("<b>Aeroaid Headquarters</b>").openPopup();
+    </script>
 </body>
 </html>
