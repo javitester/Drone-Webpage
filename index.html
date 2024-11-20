@@ -98,6 +98,22 @@
             width: 100%;
             height: 400px;
         }
+
+        /* PayPal Button Styling */
+        .paypal-button {
+            background-color: #FFCC00;
+            color: #003366;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .paypal-button:hover {
+            background-color: #FFB900;
+        }
     </style>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -130,7 +146,13 @@
 
     <section id="partners">
         <h2>Our Partners</h2>
-        <p>We collaborate with organizations like the Red Cross, Airbus, and Boeing to bring aid to vulnerable populations and repurpose resources sustainably.</p>
+        <p>We collaborate with leading organizations and companies to maximize our impact:</p>
+        <ul>
+            <li><strong>Humanitarian Organizations:</strong> Partnerships with NGOs like the Red Cross and Doctors Without Borders enable us to identify and address the needs of vulnerable populations in disaster-stricken regions.</li>
+            <li><strong>Aerospace Industry Leaders:</strong> Collaborations with Airbus and Boeing allow us to repurpose aircraft materials into drones, aligning sustainability with cutting-edge technology.</li>
+            <li><strong>Technology Innovators:</strong> By working with tech companies, we integrate advanced navigation systems, AI-driven logistics, and durable drone designs to ensure precision and reliability.</li>
+        </ul>
+        <p>These partnerships empower us to bridge gaps in traditional aid delivery systems, transforming lives in areas where help is needed most.</p>
     </section>
 
     <section id="request">
@@ -157,7 +179,7 @@
             <input type="hidden" name="business" value="YOUR_PAYPAL_ID">
             <input type="hidden" name="item_name" value="Aeroaid Donation">
             <input type="hidden" name="currency_code" value="USD">
-            <input type="submit" value="Donate with PayPal">
+            <input class="paypal-button" type="submit" value="Donate with PayPal">
         </form>
     </section>
 
